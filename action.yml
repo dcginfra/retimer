@@ -1,0 +1,10 @@
+name: Restore/save mtimes
+description: "Restores/saves timestamps from the retimer state file if the hash matches"
+inputs:
+  target:
+    default: .
+    description: "Directory to process"
+runs:
+  using: 'node20'
+  main: 'entrypoint.js'
+  post: 'entrypoint.js'
