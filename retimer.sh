@@ -1,6 +1,7 @@
 #!/bin/sh
 
-OUTPUT_FILE="retimer-state/file_info.txt"
+OUTPUT_DIR="retimer-state"
+OUTPUT_FILE="$OUTPUT_DIR/file_info.txt"
 
 calculate_blake3() {
   b3sum "$1" | awk '{print $1}'
@@ -36,6 +37,8 @@ restore_timestamps() {
   done < "$OUTPUT_FILE"
 }
 
+
+mkdir -p "$OUTPUT_DIR"
 case "$1" in
   "save")
     save_timestamps_and_hashes
