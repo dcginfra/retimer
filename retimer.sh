@@ -4,6 +4,7 @@ OUTPUT_DIR="retimer-state"
 OUTPUT_FILE="$OUTPUT_DIR/file_info.txt"
 
 calculate_blake3() {
+  echo "Calculating blake3 hash for $1"
   b3sum "$1" | awk '{print $1}'
 }
 
@@ -12,15 +13,16 @@ save_timestamps_and_hashes() {
   pwd
   echo "Directory contents"
   ls -lha
-  find . -type f
   > "$OUTPUT_FILE"  # Clear existing file
   find . -type f | while read -r file; do
-    echo $file
+    echo "$file"
     mtime=$(stat -c "%Y" "$file")
+    echo "$mtime"
     hash=$(calculate_blake3 "$file")
+    echo "$hash"
     echo "$file $mtime $hash" >> "$OUTPUT_FILE"
   done
-  tail "$OUTPUT_FILE"
+  cat "$OUTPUT_FILE"
 }
 
 restore_timestamps() {
