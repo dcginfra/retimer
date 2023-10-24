@@ -4,7 +4,6 @@ OUTPUT_DIR="retimer-state"
 OUTPUT_FILE="$OUTPUT_DIR/file_info.txt"
 
 calculate_blake3() {
-  echo "Calculating blake3 hash for $1"
   b3sum "$1" --no-names
 }
 
