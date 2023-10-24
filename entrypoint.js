@@ -32,7 +32,7 @@ const { spawn } = require("child_process");
 const { appendFileSync } = require("fs");
 const { EOL } = require("os");
 
-function run(cmd) {
+function run(cmd, args) {
   const subprocess = spawn(cmd, args, { stdio: "inherit", shell: false });
   subprocess.on("exit", (exitCode) => {
     process.exitCode = exitCode;
