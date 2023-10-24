@@ -12,9 +12,10 @@ save_timestamps_and_hashes() {
   pwd
   echo "Directory contents"
   ls -lha
-  tree -apuD .
+  find . -type f
   > "$OUTPUT_FILE"  # Clear existing file
   find . -type f | while read -r file; do
+    echo $file
     mtime=$(stat -c "%Y" "$file")
     hash=$(calculate_blake3 "$file")
     echo "$file $mtime $hash" >> "$OUTPUT_FILE"
