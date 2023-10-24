@@ -8,16 +8,19 @@ calculate_blake3() {
 
 save_timestamps_and_hashes() {
   echo "Saving timestamps"
+  pwd
   > "$OUTPUT_FILE"  # Clear existing file
   find . -type f | while read -r file; do
     mtime=$(stat -c "%Y" "$file")
     hash=$(calculate_blake3 "$file")
     echo "$file $mtime $hash" >> "$OUTPUT_FILE"
   done
+  tail "$OUTPUT_FILE"
 }
 
 restore_timestamps() {
   echo "Restoring timestamps"
+  pwd
   while read -r line; do
     echo "$line"
     file=$(echo "$line" | awk '{print $1}')
