@@ -42,8 +42,8 @@ function run(cmd, args) {
 const key = "POST"
 
 if ( process.env[`STATE_${key}`] !== undefined ) { // Are we in the 'post' step?
-  run(__dirname+"/retimer.sh", "save");
+  run(__dirname+"/retimer.sh", ["save"]);
 } else { // Otherwise, this is the main step
   appendFileSync(process.env.GITHUB_STATE, `${key}=true${EOL}`);
-  run(__dirname+"/retimer.sh", "restore");
+  run(__dirname+"/retimer.sh", ["restore"]);
 }
