@@ -10,6 +10,9 @@ calculate_blake3() {
 save_timestamps_and_hashes() {
   echo "Saving timestamps"
   pwd
+  echo "Directory contents"
+  ls -lha
+  tree -apuD .
   > "$OUTPUT_FILE"  # Clear existing file
   find . -type f | while read -r file; do
     mtime=$(stat -c "%Y" "$file")
