@@ -13,7 +13,7 @@ save_timestamps_and_hashes() {
   echo "Directory contents"
   ls -lha
   > "$OUTPUT_FILE"  # Clear existing file
-  find . -type f | while read -r file; do
+  find . -name .git -prune -o -type f -print | while read -r file; do
     echo "$file"
     mtime=$(stat -c "%Y" "$file")
     echo "$mtime"
