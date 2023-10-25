@@ -8,25 +8,16 @@ calculate_blake3() {
 }
 
 save_timestamps_and_hashes() {
-  echo "Saving timestamps"
-  pwd
-  echo "Directory contents"
-  ls -lha
   > "$OUTPUT_FILE"  # Clear existing file
   find . -name .git -prune -o -type f -print | while read -r file; do
-    echo "$file"
     mtime=$(stat -c "%Y" "$file")
-    echo "$mtime"
     hash=$(calculate_blake3 "$file")
-    echo "$hash"
     echo "$file $mtime $hash" >> "$OUTPUT_FILE"
   done
   cat "$OUTPUT_FILE"
 }
 
 restore_timestamps() {
-  echo "Restoring timestamps"
-  pwd
   if [ -f "$OUTPUT_FILE" ]; then
     while read -r line; do
       echo "$line"
