@@ -20,7 +20,6 @@ save_timestamps_and_hashes() {
 restore_timestamps() {
   if [ -f "$OUTPUT_FILE" ]; then
     while read -r line; do
-      echo "$line"
       file=$(echo "$line" | awk '{print $1}')
       mtime=$(echo "$line" | awk '{print $2}')
       hash=$(echo "$line" | awk '{print $3}')
@@ -32,8 +31,6 @@ restore_timestamps() {
         echo "Hash mismatch for $file"
       fi
     done < "$OUTPUT_FILE"
-  else
-    echo "Output file $OUTPUT_FILE does not exist. Nothing to restore."
   fi
 }
 
