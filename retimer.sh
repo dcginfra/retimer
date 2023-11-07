@@ -9,7 +9,7 @@ calculate_blake3() {
 
 save_timestamps_and_hashes() {
   > "$OUTPUT_FILE"  # Clear existing file
-  find . -name .git -prune -o -type f -print | while read -r file; do
+  find packages -name '*.rs' -o -type f -print | while read -r file; do
     mtime=$(stat -c "%Y" "$file")
     hash=$(calculate_blake3 "$file")
     echo "$file $mtime $hash" >> "$OUTPUT_FILE"
@@ -23,7 +23,7 @@ restore_timestamps() {
       file=$(echo "$line" | awk '{print $1}')
       mtime=$(echo "$line" | awk '{print $2}')
       hash=$(echo "$line" | awk '{print $3}')
-      
+
       if [ "$(calculate_blake3 "$file")" = "$hash" ]; then
         echo "Restoring mtime for $file"
         touch -d "@$mtime" "$file"
