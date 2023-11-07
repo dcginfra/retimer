@@ -9,7 +9,7 @@ calculate_blake3() {
 
 save_timestamps_and_hashes() {
   > "$OUTPUT_FILE"  # Clear existing file
-  find packages -name '*.rs' -o -type f -print | while read -r file; do
+  find packages -name '*.rs' -type f -print | while read -r file; do
     mtime=$(stat -c "%Y" "$file")
     hash=$(calculate_blake3 "$file")
     echo "$file $mtime $hash" >> "$OUTPUT_FILE"
